@@ -1,56 +1,39 @@
+from analyzer import *
 
-class Position:
+import re
 
-    def __init__(self,idx,ln,col):
-        self.idx = idx
-        self.ln = ln
-        self.col = col
-
-    def move(self,current_char):
-        self.idx += 1
-        self.col += 1
-
-        if current_char == '\n':
-            self.ln += 1
-            self.col = 0
-        return self
-        
-    def copy(self):
-        return Position(self.idx,self.ln,self.col)
 
 ###########################################################
 #     Lexer   
 ###########################################################
-
-
 class Lexer:
 
     def __init__(self,code):
         self.code = code
-        self.len = len(self.code)
-        self.pos = Position(-1,0,-1)
-        self.current_char = None
+        self.code_sp = code.split('\n')
+        self.code_class = code.split('class')
+        self.len_ = len(self.code_sp)
+        self.className = {}
+        self.pos = -1
+        self.current_line = None 
         self.move()
+        self.make_tokens()
+
 
     def move(self):
-        self.pos.move(self.current_char)
-        self.current_char = self.code[self.pos.idx] if self.pos.idx < self.len else None
+        self.pos +=1
+        self.current_line = self.pos if self.pos < self.len_ else None
 
-    
+    def Class(self):
+        while self.current_line != None:
+            line = self.code_sp[self.current_line]
+            print(DefineToken(line).token())
+            self.move()
+    def Methods(self):
+        pass
+
     def make_tokens(self):
+        self.Class()
+         
 
-        tokens = []
-        present_idx = 0
 
-        while self.current_char != None:
-
-            if self.current_char == "\t":
-                self.move()
-            else:
-                
-                if self.move():
-                    tok = self.code[present_idx:self.pos.idx].strip()
-                    tokens.append(tok)
-                self.move()
-        return tokens
-     

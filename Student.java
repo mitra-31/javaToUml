@@ -3,7 +3,7 @@ import java.io.*;
 
 
 
-public class demo {
+private class demo extends Student {
 	int demo1()
 }
 
@@ -34,7 +34,7 @@ public class Student {
 	System.out.println(usn + "\t| " + name + "\t| " + branch + "\t| " + phone);
 	System.out.println("---------------------------------------------\n");
 	}
-
+/*--------------*/
 	public static void main(String args[]) {
 		int i,n;
 		Student s[]= new Student[100];
