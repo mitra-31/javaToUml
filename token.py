@@ -25,10 +25,19 @@ class Lexer:
         self.current_line = self.pos if self.pos < self.len_ else None
 
     def Class(self):
+        count = 1
         while self.current_line != None:
             line = self.code_sp[self.current_line]
-            print(DefineToken(line).token())
+            x = DefineToken(line).token()
+            if x:
+                self.className[count] = x
+                print(x)
+                count += 1
             self.move()
+        #print(self.className)
+        return 
+
+        
     def Methods(self):
         pass
 
